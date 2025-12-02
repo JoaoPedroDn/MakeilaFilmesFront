@@ -1,0 +1,1027 @@
+/* ====================================================================== */
+/* 1. ESTILOS GLOBAIS E RESET */
+/* ====================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: sans-serif; /* Adicionado para consistência */
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Foco e Acessibilidade */
+button:focus,
+.login-button:focus,
+.logout-button:focus,
+.favorite-button:focus { 
+    outline: none !important;
+    box-shadow: none;
+}
+
+.favorite-button:focus,
+.favorite-button:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* ====================================================================== */
+/* 2. LAYOUT PRINCIPAL E NAVEGAÇÃO */
+/* ====================================================================== */
+
+/* 2.1. HEADER E BARRA DE PESQUISA */
+
+.top-bar {
+    display: flex; /* Mágica que coloca tudo lado a lado */
+    justify-content: space-between; /* Espalha: Esq ----- Meio ----- Dir */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 0 16px;
+    height: 60px; /* Altura fixa para o header */
+    background-color: #0f0f0f; /* Cor de fundo escura */
+    position: fixed; /* Fixa no topo */
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+.lado-esquerdo, .lado-direito {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-width: 150px;
+}
+
+.lado-direito {
+    justify-content: flex-end;
+}
+
+.meio {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.makeila-logo-icon {
+    height: 30px;
+    width: auto;
+}
+
+/* Pesquisa */
+.pesquisa {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 8px 15px;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #121212;
+    border: 1px solid #303030;
+    color: white;
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espaço entre ícone e texto */
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 2.2. PAGE CONTAINER E MAIN CONTENT */
+
+.page-container {
+    padding-top: 56px;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 0px 1fr;
+    transition: grid-template-columns 0.3s ease-in-out;
+}
+
+.page-container.sidebar-open {
+    grid-template-columns: 240px 1fr;
+}
+
+.main-content {
+    padding: 30px 40px;
+    background-color: #181818;
+    overflow-y: auto;
+    color: #ffffff;
+    min-height: calc(100vh - 56px); /* Garante que o conteúdo principal ocupe o resto da tela */
+}
+
+.main-content h1 {
+    color: #ffffff;
+    font-size: 2.5rem;
+font-weight: 700;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* 2.3. SIDEBAR (MENU LATERAL) */
+
+.sidebar {
+    background-color: #212121;
+    color: #fff;
+    padding: 24px 0;
+    overflow-y: auto;
+    height: 100%;
+    margin-top: 0;
+}
+
+.page-container:not(.sidebar-open) .sidebar {
+    overflow: hidden;
+    white-space: nowrap; 
+}
+
+.sidebar-section {
+    padding: 15px 20px 5px 20px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #aaaa;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-link {
+    display: block;
+    padding: 8px 0;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s, transform 0.2s;
+    outline: none;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+}
+
+.nav-link:hover {
+    color: #121212;
+    background-color: #e0b400;
+    border-radius: 4px;
+    padding-left: 10px;
+    transform: translateX(5px) scale(1.02); 
+}
+
+.nav-link.active {
+    background-color: #e0b400; 
+    border-radius: 4px;
+    padding-left: 10px;
+    color: #121212; 
+    box-shadow: none;
+}
+
+.sidebar-divider {
+    border: none;
+    height: 1px;
+    background-color: #303030;
+    margin: 20px 24px;
+}
+
+/* ====================================================================== */
+/* 3. COMPONENTES COMUNS E BOTÕES DE ÍCONE */
+/* ====================================================================== */
+
+/* Botões de Ícone (Menu, Sino, Perfil, Voz) */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+
+.menu:hover, .sininho:hover, .perfil:hover {
+    transform: scale(1.1);
+    background-color: #e0b400;
+}
+
+.search-voice-button {
+    background-color: #303030;
+    margin-left: 10px;
+    width: 40px; 
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-button, .search-voice-button:hover {
+    background-color: #303030;
+    border: 1px solid #303030;
+    color: white;
+    padding: 0 20px;
+    height: 40px;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.search-button:hover, .search-voice-button:hover {
+    background-color: #e0b400; 
+}
+
+.lupa-icon, .mic-icon, .sino-icon {
+    height: 20px;
+    width: 20px;
+    display: block;
+}
+
+.perfil-icon {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: block;
+}
+
+.logout-button {
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: white;
+}
+
+.logout-button:hover {
+    color: #121212;
+    background-color: #e0b400;
+    transform: scale(1.05);
+}
+
+/* ====================================================================== */
+/* 4. COMPONENTES DE CONTEÚDO (CARD E GÊNEROS) */
+/* ====================================================================== */
+
+/* 4.1. MOVIE CARD */
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.movie-card {
+    background-color: #1a1a1a;
+    border-radius: 12px; 
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-list .movie-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 
+        0 0 0 2px #e0b400, 
+        0 12px 25px rgba(0, 0, 0, 0.6);
+}
+
+.movie-poster {
+    width: 100%;
+    height: auto;
+    min-height: 270px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px 12px 0 0;
+}
+
+.card-info {
+    padding: 15px 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+}
+
+.card-info h3 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-info p {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6); 
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background-color 0.2s, transform 0.2s; 
+    color: white;
+}
+
+.favorite-button.favorited { 
+    color: #ff0000;
+}
+
+.favorite-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.2); 
+}
+
+.poster-info-container {
+    width: 300px;
+    height: 450px;
+    flex-shrink: 0;
+}
+
+
+
+/* 4.2. GÊNEROS */
+
+.genres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.genre-tag {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    padding: 0;
+}
+
+.genre-tag:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-color: #e0b400;
+}
+
+.genre-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-bottom: 1px solid #333;
+}
+
+.genre-info {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.genre-name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.genre-count {
+    font-size: 0.9em;
+    color: #aaa;
+}
+
+/* ====================================================================== */
+/* 5. TELAS ESPECÍFICAS (LOGIN/DETALHE) */
+/* ====================================================================== */
+
+/* 5.1. MOVIE DETAIL (CORRIGIDO) */
+
+.movie-detail-container {
+    padding: 30px 40px;
+    background-color: #121212;
+    min-height: calc(100vh - 56px);
+    color: #f1f1f1;
+}
+
+
+.back-button {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    transition: background-color 0.2s, transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    background-color: #e0b400;
+    color: #121212;
+    transform: translateX(-5px);
+}
+
+.detail-header {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.detail-poster {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.detail-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.detail-info h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #e0b400;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.detail-categories {
+    font-size: 1.1rem;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.detail-synopsis {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ffffff;
+    margin-bottom: 30px;
+    max-width: 900px;
+}
+
+.poster-wrapper {
+    width: 100%;
+    max-width: 300%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.watch-button, .buy-button, .checkout-button {
+    width: 90%;
+    max-width: 350px;
+    margin: 15px auto 0 auto; 
+
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.watch-button {
+    background-color: #303030; 
+    color: white;
+}
+
+.buy-button, .checkout-button {
+    background-color: #1bb420;
+    color: #121212;
+}
+
+.watch-button:hover {
+    background-color: #e0b400;
+    color: #121212;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 5px 15px rgba(225, 193, 7, 0.4);
+}
+
+.buy-button:hover {
+    background-color: #1bb420;
+    color: #121212;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 138, 14, 0.2);
+}
+
+.checkout-button:hover {
+    background-color: #1bb420;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(27, 180, 32, 0.4);
+}
+
+.trailer-section {
+    margin-top: 50px;
+}
+
+.trailer-section h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+.trailer-embed-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+.trailer-embed-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 5.2. LOGIN/REGISTRO & TELAS DE RESULTADOS */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.login-box {
+    background-color: #1e1e1e;
+    padding: 40px 45px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid #303030;
+}
+
+.login-title {
+    color: #e0b400;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.login-form, .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 1.05rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.login-input:focus {
+    border-color: #e0b400;
+    box-shadow: 0 0 8px rgba(224, 180, 0, 0.5);
+    background-color: #333333;
+}
+
+.login-button {
+    background-color: #e0b400;
+    color: #121212;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.1s, box-shadow 0.3s;
+}
+
+.login-button:hover {
+    background-color: #ffc107;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(224, 180, 0, 0.4);
+}
+
+.signup-text {
+    color: #aaaa;
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+.signup-link {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+    transition: color 0.2s;
+}
+
+.signup-link:hover {
+    color: #e0b400;
+    text-decoration: underline;
+}
+
+
+.remove-item-button {
+    background-color: #303030;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.remove-item-button:hover {
+    background-color: #d10000;
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+}
+
+.cart-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+    list-style: none;
+    margin: 0;
+}
+
+.main-content.placeholder-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    text-align: center;
+    padding: 20px;
+}
+
+.placeholder-screen h1 {
+    font-size: 2.5rem;
+    color: #e0b400;
+    margin-bottom: 10px;
+}
+
+.placeholder-screen .screen-info {
+    font-size: 1.2rem;
+    color: #888;
+    max-width: 500px;
+    line-height: 1.6;
+    border-top: 2px solid #333;
+    padding-top: 15px;
+    margin-top: 20px;
+}
+
+.no-results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.checkout-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #fff;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+}
+
+.summary-card {
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #333;
+    height: fit-content;
+}
+
+.total-price {
+    font-size: 1.8rem;
+    color: #e0b400;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.payment-section {
+    background: #1f1f1f;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #333;
+}
+
+.payment-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.payment-tab {
+    flex: 1;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    color: #aaa;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-tab:hover {
+    background: #333;
+}
+
+.payment-tab.active {
+    background: rgba(224, 180, 0, 0.15);
+    border-color: #e0b400;
+    color: #e0b400;
+    font-weight: bold;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.checkout-input {
+    width: 100%;
+    background: #121212;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+.checkout-input:focus {
+    border-color: #1bb420;
+    box-shadow: 0 0 8px rgba(224, 180, 0, 0.2);
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 15px;
+    background: #1bb420;
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+
+.checkout-button:hover:not(:disabled) {
+    background: #1bb420;
+    transform: translateY(-2px);
+}
+
+.checkout-button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+
+@media (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ====================================================================== */
+/* 6. MEDIA QUERIES (RESPONSIVIDADE) */
+/* ====================================================================== */
+
+@media (max-width: 1000px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .poster-wrapper {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .detail-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .detail-info h1 {
+        font-size: 2.2rem;
+    }
+    
+    .watch-button, .buy-button, .checkout-button {
+        width: 80%; 
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-container.sidebar-open {
+        grid-template-columns: 180px 1fr;
+    }
+   
+    .makeila-header {
+        padding: 0 15px;
+    }
+    .lado-direito {
+        gap: 10px;
+    }
+    .pesquisa {
+        max-width: 350px;
+    }
+    .poster-info-container {
+        width: 180px;
+        height: 270px;
+        margin: 20px auto;
+    }
+    .logout-button {
+        display: block;
+        padding: 4px; 
+    }
+
+    .grid-list {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 20px;
+    }
+    .movie-poster {
+        min-height: 200px;
+    }
+    .card-info h3 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .makeila-header {
+        justify-content: space-around;
+        padding: 0 10px;
+    }
+    .meio {
+        display: none;
+    }
+    .lado-esquerdo, .lado-direito {
+        margin: 0;
+        gap: 10px;
+        min-width: unset;
+    }
+
+    .page-container.sidebar-open {
+        grid-template-columns: 0 1fr;
+    }
+
+    .movie-detail-container { 
+        padding: 20px;
+    }
+    .detail-info h1 {
+        font-size: 1.8rem;
+    }
+    .detail-synopsis {
+        font-size: 1rem;
+    }
+    .trailer-section h2 {
+        font-size: 1.5rem;
+    }
+}
