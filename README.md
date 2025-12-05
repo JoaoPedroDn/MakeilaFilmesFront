@@ -66,6 +66,7 @@ Commit (git commit -m ':sparkles: feature: Minha nova feature')
 Push (git push origin feature/minha-feature)
 
 Abra um Pull Request
+```
 
 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE.
