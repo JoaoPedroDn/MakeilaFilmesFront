@@ -1,20 +1,72 @@
-<<<<<<< HEAD
-# React + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📂 README_Front.md (Makeila - FilmeStore Frontend)
 
-Currently, two official plugins are available:
+```markdown
+# 🎬 Makeila - FilmeStore Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O **Makeila Frontend** é a interface web do sistema de venda de filmes digitais.  
+Ele permite que usuários naveguem pelo catálogo, visualizem detalhes dos filmes, criem pedidos e acompanhem suas compras de forma intuitiva.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Funcionalidades
 
-## Expanding the ESLint configuration
+- **Home Page Moderna**: catálogo de filmes com imagens, trailers e sinopses.  
+- **Perfil de Usuário**: informações pessoais e histórico de pedidos.  
+- **Sistema de Pedidos**: carrinho de compras e cálculo automático do total.  
+- **Pagamentos Simulados**: escolha entre Pix, Cartão de Crédito ou Débito.  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# projeto-ecommerce-frontend
->>>>>>> 572938a71a643bf27b276fc07e26476b9155f99c
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Framework**: React ou Next.js (dependendo da implementação escolhida)  
+- **Linguagem**: TypeScript ou JavaScript  
+- **Estilização**: Tailwind CSS  
+- **Cliente HTTP**: Axios (para comunicação com o backend)  
+
+---
+
+## 📂 Estrutura do Projeto
+
+makeila-frontend/
+├── src/
+│  ├── pages/ # Páginas principais
+│  ├── components/ # Componentes reutilizáveis
+│  ├── services/ # Comunicação com API
+│  ├── types/ # Definições de tipos
+│  └── assets/ # Imagens e ícones
+
+
+---
+
+## ⚡ Como Executar
+
+### Pré-requisitos
+- Node.js 18+
+- npm ou yarn
+
+### Passos
+```bash
+git clone https://github.com/seuusuario/makeila-frontend.git
+cd makeila-frontend
+npm install
+npm run dev
+Acesse em: http://localhost:3000
+
+🤝 Contribuição
+Faça um Fork
+
+Crie uma Branch (feature/minha-feature)
+
+Commit (git commit -m ':sparkles: feature: Minha nova feature')
+
+Push (git push origin feature/minha-feature)
+
+Abra um Pull Request
+
+📝 Licença
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE.
+
+Desenvolvido por Hevellyn Karinne Ribeiro Castro, João Pedro Dourado do Nascimento, Julia Rocha Celestino 🎓
