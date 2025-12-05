@@ -50,7 +50,7 @@ Código
 
 ### Passos
 ```bash
-git clone https://github.com/seuusuario/makeila-frontend.git
+git clone https://github.com/JoaoPedroDn/makeila-frontend.git
 cd makeila-frontend
 npm install
 npm run dev
