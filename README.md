@@ -2,7 +2,7 @@
 
 ## 📂 README_Front.md (Makeila - FilmeStore Frontend)
 
-```markdown
+
 # 🎬 Makeila - FilmeStore Frontend
 
 O **Makeila Frontend** é a interface web do sistema de venda de filmes digitais.  
@@ -30,7 +30,13 @@ Ele permite que usuários naveguem pelo catálogo, visualizem detalhes dos filme
 
 ## 📂 Estrutura do Projeto
 
-makeila-frontend/ ├── src/ │ ├── pages/ # Páginas principais │ ├── components/ # Componentes reutilizáveis │ ├── services/ # Comunicação com API │ ├── types/ # Definições de tipos │ └── assets/ # Imagens e ícones
+makeila-frontend/
+├── src/
+│ ├── pages/ # Páginas principais
+│ ├── components/ # Componentes reutilizáveis
+│ ├── services/ # Comunicação com API
+│ ├── types/ # Definições de tipos
+│ └── assets/ # Imagens e ícones
 
 Código
 
