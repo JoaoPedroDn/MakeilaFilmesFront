@@ -55,17 +55,6 @@ cd makeila-frontend
 npm install
 npm run dev
 Acesse em: http://localhost:3000
-
-🤝 Contribuição
-Faça um Fork
-
-Crie uma Branch (feature/minha-feature)
-
-Commit (git commit -m ':sparkles: feature: Minha nova feature')
-
-Push (git push origin feature/minha-feature)
-
-Abra um Pull Request
 ```
 
 Desenvolvido por Hevellyn Karinne Ribeiro Castro, João Pedro Dourado do Nascimento, Julia Rocha Celestino 🎓
